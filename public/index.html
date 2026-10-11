@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mis canciones</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header><span class="eyebrow">TU MÚSICA</span><h1>Mis canciones</h1><p>Elige una canción y dale al play.</p></header>
+    <section class="player" aria-label="Reproductor">
+      <span class="eyebrow">AHORA SUENA</span>
+      <h2 id="current">Selecciona una canción</h2>
+      <audio id="audio" controls preload="metadata" aria-label="Controles de reproducción"></audio>
+      <div class="navigation">
+        <button id="previous" type="button" disabled>← Anterior</button>
+        <button id="next" type="button" disabled>Siguiente →</button>
+      </div>
+    </section>
+    <section aria-label="Canciones">
+      <div class="list-heading"><h2>Tu biblioteca</h2><span id="count"></span></div>
+      <p id="status" role="status">Cargando canciones…</p>
+      <ul id="songs"></ul>
+    </section>
+  </main>
+</body>
+</html>
