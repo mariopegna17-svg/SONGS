@@ -3,27 +3,70 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mis canciones</title>
+  <meta name="theme-color" content="#141413">
+  <title>SONGS · Mis canciones</title>
   <link rel="stylesheet" href="/styles.css">
   <script src="/app.js" defer></script>
 </head>
 <body>
+  <svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m9 5 11 7-11 7Z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14" stroke-width="4"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="m5 5 10 7-10 7Z" fill="currentColor" stroke="none"/><path d="M19 5v14"/></symbol>
+    <symbol id="i-previous" viewBox="0 0 24 24"><path d="m19 5-10 7 10 7Z" fill="currentColor" stroke="none"/><path d="M5 5v14"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="i-shuffle" viewBox="0 0 24 24"><path d="M3 5h3l12 14h3M3 19h3l5-6M14 8l4-3h3M18 2l3 3-3 3M18 16l3 3-3 3"/></symbol>
+    <symbol id="i-repeat" viewBox="0 0 24 24"><path d="m17 2 4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4M21 13v2a3 3 0 0 1-3 3H3"/></symbol>
+    <symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 4 6 8H2v8h4l5 4ZM15 8a6 6 0 0 1 0 8M18 5a10 10 0 0 1 0 14"/></symbol>
+    <symbol id="i-muted" viewBox="0 0 24 24"><path d="M11 4 6 8H2v8h4l5 4ZM16 9l6 6M22 9l-6 6"/></symbol>
+    <symbol id="i-tune" viewBox="0 0 24 24"><path d="M4 3v18M12 3v18M20 3v18M1 8h6M9 16h6M17 9h6"/></symbol>
+    <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13M9 9l12-2"/><ellipse cx="5.5" cy="18" rx="3.5" ry="3"/><ellipse cx="17.5" cy="16" rx="3.5" ry="3"/></symbol>
+  </defs></svg>
   <main>
-    <header><span class="eyebrow">TU MÚSICA</span><h1>Mis canciones</h1><p>Elige una canción y dale al play.</p></header>
-    <section class="player" aria-label="Reproductor">
-      <span class="eyebrow">AHORA SUENA</span>
-      <h2 id="current">Selecciona una canción</h2>
-      <audio id="audio" controls preload="metadata" aria-label="Controles de reproducción"></audio>
-      <div class="navigation">
-        <button id="previous" type="button" disabled>← Anterior</button>
-        <button id="next" type="button" disabled>Siguiente →</button>
-      </div>
-    </section>
-    <section aria-label="Canciones">
-      <div class="list-heading"><h2>Tu biblioteca</h2><span id="count"></span></div>
-      <p id="status" role="status">Cargando canciones…</p>
-      <ul id="songs"></ul>
-    </section>
+    <header class="topbar"><a class="brand" href="/" aria-label="SONGS, inicio"><span class="brand-mark"><svg class="icon"><use href="#i-music"/></svg></span>SONGS<span class="brand-dot">.</span></a><span class="topbar-note">TU COLECCIÓN PERSONAL</span></header>
+    <section class="intro" aria-label="Bienvenida"><div><span class="eyebrow"><span class="live-dot"></span> QUE SUENE LO TUYO</span><h1>Tu música.<br><span>A tu manera.</span></h1><p>Tus canciones, tus favoritas, tu momento.</p></div><div class="collection-info"><strong id="total">—</strong><span>canciones en tu colección</span></div></section>
+    <div class="workspace">
+      <section class="library" aria-label="Biblioteca de canciones">
+        <div class="section-heading"><h2>Tu biblioteca</h2><span class="tag">TU COLECCIÓN</span></div>
+        <div class="library-toolbar"><div class="tabs" role="group" aria-label="Filtrar biblioteca"><button id="all-tab" type="button" aria-pressed="true">Todas <span id="all-count">0</span></button><button id="favorites-tab" type="button" aria-pressed="false">Favoritas <span id="favorites-count">0</span></button></div><button id="play-all" class="small-primary" type="button" disabled><svg class="icon"><use href="#i-play"/></svg> Reproducir</button></div>
+        <label class="search"><svg class="icon"><use href="#i-search"/></svg><input id="search" type="search" placeholder="Buscar una canción…" aria-label="Buscar canciones" autocomplete="off"><kbd>/</kbd></label>
+        <p id="status" class="status" role="status">Cargando canciones…</p><p id="empty" class="empty" hidden></p>
+        <div class="track-head" aria-hidden="true"><span>#</span><span>CANCIÓN</span><span>FAVORITA</span></div><ul id="songs" class="song-list"></ul>
+        <div class="library-footer"><span id="count"></span><span>Hecho para escuchar.</span></div>
+      </section>
+      <aside class="player-column">
+        <section class="player" aria-label="Reproductor">
+          <div class="player-heading"><span class="eyebrow">AHORA SUENA</span><span id="play-state" class="tag">EN PAUSA</span></div>
+          <div class="record-wrap" aria-hidden="true"><div class="record"><div class="record-label"><span>SONGS</span><strong>S.</strong><small>SIDE A · PERSONAL COLLECTION</small></div></div></div>
+          <div class="current-heading"><div><h2 id="current">Selecciona una canción</h2><p id="track-meta">Tu colección personal</p></div><button id="current-favorite" class="icon-button" type="button" aria-label="Añadir canción actual a favoritas" aria-pressed="false" disabled><svg class="icon"><use href="#i-heart"/></svg></button></div>
+          <audio id="audio" controls preload="metadata" aria-label="Controles de reproducción"></audio>
+          <div class="custom-controls">
+            <div class="timeline"><input id="seek" type="range" min="0" max="100" step="0.1" value="0" aria-label="Posición de reproducción" disabled><div><span id="elapsed">0:00</span><span id="duration">0:00</span></div></div>
+            <div class="transport">
+              <button id="shuffle" class="icon-button mode" type="button" aria-label="Reproducción aleatoria" aria-pressed="false" disabled title="Aleatorio"><svg class="icon"><use href="#i-shuffle"/></svg></button>
+              <button id="previous" class="icon-button" type="button" aria-label="Canción anterior" disabled title="Anterior"><svg class="icon"><use href="#i-previous"/></svg></button>
+              <button id="play" class="play-button" type="button" aria-label="Reproducir" disabled><svg class="icon"><use href="#i-play"/></svg></button>
+              <button id="next" class="icon-button" type="button" aria-label="Canción siguiente" disabled title="Siguiente"><svg class="icon"><use href="#i-next"/></svg></button>
+              <button id="repeat" class="icon-button mode" type="button" aria-label="Repetición desactivada" aria-pressed="false" disabled title="Repetición desactivada"><svg class="icon"><use href="#i-repeat"/></svg><span id="repeat-one" hidden>1</span></button>
+            </div>
+            <div class="volume-row"><button id="mute" class="icon-button" type="button" aria-label="Silenciar" aria-pressed="false"><svg class="icon"><use href="#i-volume"/></svg></button><input id="volume" type="range" min="0" max="1" step="0.01" value="0.8" aria-label="Volumen"><span id="volume-value">80%</span></div>
+          </div>
+        </section>
+        <details class="sound-panel">
+          <summary><span><svg class="icon"><use href="#i-tune"/></svg> Ajusta tu sonido</span><span class="details-arrow">+</span></summary>
+          <div class="sound-content">
+            <div class="eq-heading"><span>Ecualizador</span><button id="eq-toggle" type="button" class="toggle" aria-pressed="false">Activar</button></div><p class="sound-hint" id="eq-status" role="status">Adapta graves, voces y agudos a tu gusto.</p>
+            <label class="select-label">Perfil<select id="preset"><option value="flat">Original</option><option value="bass">Más graves</option><option value="voice">Voces claras</option><option value="bright">Más brillo</option><option value="custom">Personalizado</option></select></label>
+            <div class="eq-bands"><label>Graves <output id="bass-value">0 dB</output><input id="bass" type="range" min="-6" max="6" step="1" value="0"></label><label>Medios <output id="mid-value">0 dB</output><input id="mid" type="range" min="-6" max="6" step="1" value="0"></label><label>Agudos <output id="treble-value">0 dB</output><input id="treble" type="range" min="-6" max="6" step="1" value="0"></label></div>
+            <div class="extra-settings"><label class="select-label">Velocidad<select id="speed"><option value="0.75">0,75×</option><option value="1" selected>Normal · 1×</option><option value="1.25">1,25×</option><option value="1.5">1,5×</option></select></label><label class="select-label">Temporizador<select id="sleep"><option value="0">Desactivado</option><option value="15">15 minutos</option><option value="30">30 minutos</option><option value="60">60 minutos</option></select></label></div>
+            <p id="sleep-status" class="sound-hint" role="status"></p><p class="sound-note">Reproducimos el archivo original sin convertirlo. El ecualizador cambia el sonido, no la calidad de la grabación.</p>
+          </div>
+        </details>
+        <p class="keyboard-hint"><kbd>Espacio</kbd> play / pausa <span>·</span> <kbd>←</kbd> <kbd>→</kbd> ±5 s</p>
+      </aside>
+    </div>
+    <footer class="page-footer"><span>SONGS.</span><span>DALE AL PLAY. DISFRUTA.</span></footer>
   </main>
 </body>
 </html>

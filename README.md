@@ -1,6 +1,27 @@
 # Mis canciones
 
-Reproductor sencillo, sin dependencias externas: lista de canciones, controles de audio, anterior y siguiente. Al terminar una canción pasa a la siguiente.
+Reproductor sin dependencias externas, con diseño oscuro adaptable a móvil y ordenador.
+
+## Funciones
+
+- Biblioteca con búsqueda que reconoce palabras con y sin tildes.
+- Play/pausa, anterior/siguiente, barra de progreso, volumen y silencio.
+- Favoritas guardadas en el navegador.
+- Reproducción aleatoria sin repetir canciones hasta completar la lista; repetición de lista o de una canción.
+- El botón Reproducir y la selección de una canción usan como lista las canciones visibles: todas, favoritas o resultados de búsqueda.
+- Ecualizador de tres bandas con perfiles Original, Más graves, Voces claras y Más brillo.
+- Velocidad de reproducción y temporizador de 15, 30 o 60 minutos.
+- Recuperación de última canción y posición, sin reproducción automática al abrir la página.
+- Atajos: espacio para play/pausa, flechas para avanzar o retroceder cinco segundos y `/` para buscar cuando el foco no está en un control.
+- Controles multimedia del sistema y pantalla de bloqueo cuando el navegador los admite.
+
+Las favoritas, volumen, velocidad y ajustes se guardan solo en ese navegador; no necesitas una cuenta. El temporizador funciona mientras la página permanece abierta; si el navegador suspende la pestaña, se aplica al reanudarla.
+
+## Sonido
+
+El servidor entrega los archivos originales sin convertirlos ni recomprimirlos. En **Ajusta tu sonido**, activa el ecualizador para cambiar graves, medios y agudos. Incluye compensación de ganancia y compresión de picos para reducir la saturación al reforzar frecuencias. Puedes desactivarlo para escuchar el original. Si el navegador no admite Web Audio, sigue disponible la reproducción normal.
+
+Estos ajustes no recuperan detalle perdido de un MP3 ni convierten una grabación en alta resolución. Para aumentar la calidad real, utiliza una fuente de mejor calidad, por ejemplo MP3 de mayor bitrate o FLAC si tu navegador lo admite. En algunos móviles el volumen lo gestiona el sistema.
 
 ## Añadir canciones
 
